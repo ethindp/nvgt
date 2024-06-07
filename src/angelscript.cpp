@@ -39,6 +39,7 @@
 #include "internet.h"
 #include "library.h"
 #include "map.h"
+#include "math.h"
 #include "misc_functions.h"
 #include "nvgt.h"
 #ifndef NVGT_USER_CONFIG
@@ -337,9 +338,8 @@ int ConfigureEngine(asIScriptEngine* engine) {
 	engine->SetDefaultAccessMask(NVGT_SUBSYSTEM_GENERAL);
 	RegisterScriptGrid(engine);
 	RegisterScriptHandle(engine);
-	RegisterScriptMath(engine);
-	RegisterScriptMathComplex(engine);
 	RegisterScriptWeakRef(engine);
+	RegisterSSEMath(engine);
 	engine->SetDefaultAccessMask(NVGT_SUBSYSTEM_TERMINAL);
 	Print::asRegister(engine);
 	engine->SetDefaultAccessMask(NVGT_SUBSYSTEM_GENERAL);

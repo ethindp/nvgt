@@ -1,0 +1,7 @@
+#pragma plugin algorithms
+void test_alg_for_each() {
+double[] x = {1.0, 2.0, 3.0, 4.0, 5.0};
+x.for_each(function(double a) {
+println("%d".format(x));
+});
+}

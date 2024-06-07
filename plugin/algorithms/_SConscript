@@ -1,0 +1,8 @@
+Import("env")
+
+scriptarray = env.SharedObject("scriptarray", "#plugin/ASAddon/scriptarray.cpp")
+if ARGUMENTS.get("no_shared_plugins", "0") == "0":
+	env.SharedLibrary("#release/lib/algorithms", ["algorithms.cpp", scriptarray], LIBS = [])
+algorithms_obj = env.Object("algorithms_static", "algorithms.cpp", CPPDEFINES = [("NVGT_PLUGIN_STATIC", "unicode_plugin")])
+static = env.StaticLibrary("#build/lib/algorithms", [algorithms_obj])
+Return("static")

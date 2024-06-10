@@ -11,8 +11,6 @@
 */
 
 #include "nvgt_sqlite.h"
-// Before this became a plugin it used to support obfuscation of angelscript function signatures, replace the below macro to reenable that.
-#define _O(s) s
 static asIScriptEngine* g_ScriptEngine = NULL;
 
 std::string stdstr(const char* val, size_t s = 0) {
@@ -221,52 +219,52 @@ sqlite3DB* new_sqlite3open(const std::string& filename, int mode) { return new s
 
 void RegisterSqlite3(asIScriptEngine* engine) {
 	engine->SetDefaultAccessMask(NVGT_SUBSYSTEM_SQLITE3);
-	engine->RegisterObjectType(_O("sqlite3statement"), 0, asOBJ_REF);
-	engine->RegisterObjectBehaviour(_O("sqlite3statement"), asBEHAVE_ADDREF, _O("void f()"), asMETHOD(sqlite3statement, add_ref), asCALL_THISCALL);
-	engine->RegisterObjectBehaviour(_O("sqlite3statement"), asBEHAVE_RELEASE, _O("void f()"), asMETHOD(sqlite3statement, release), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int step()"), asMETHOD(sqlite3statement, step), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int reset()"), asMETHOD(sqlite3statement, reset), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("string get_expanded_sql_statement() property"), asMETHOD(sqlite3statement, get_expanded_sql_statement), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("string get_sql_statement() property"), asMETHOD(sqlite3statement, get_sql_statement), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int get_bind_param_count() property"), asMETHOD(sqlite3statement, get_bind_param_count), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int get_column_count() property"), asMETHOD(sqlite3statement, get_column_count), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int bind_blob(int, const string&in, bool=true)"), asMETHOD(sqlite3statement, bind_blob), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int bind_double(int, double)"), asMETHOD(sqlite3statement, bind_double), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int bind_int(int, int)"), asMETHOD(sqlite3statement, bind_int), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int bind_int64(int, int64)"), asMETHOD(sqlite3statement, bind_int64), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int bind_null(int)"), asMETHOD(sqlite3statement, bind_null), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int bind_param_index(const string&in)"), asMETHOD(sqlite3statement, bind_param_index), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("string bind_param_name(int)"), asMETHOD(sqlite3statement, bind_param_name), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int bind_text(int, const string&in, bool=true)"), asMETHOD(sqlite3statement, bind_text), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int clear_bindings()"), asMETHOD(sqlite3statement, clear_bindings), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("string column_blob(int)"), asMETHOD(sqlite3statement, column_blob), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int column_bytes(int)"), asMETHOD(sqlite3statement, column_bytes), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("string column_decltype(int)"), asMETHOD(sqlite3statement, column_decltype), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("double column_double(int)"), asMETHOD(sqlite3statement, column_double), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int column_int(int)"), asMETHOD(sqlite3statement, column_int), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int64 column_int64(int)"), asMETHOD(sqlite3statement, column_int64), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("string column_name(int)"), asMETHOD(sqlite3statement, column_name), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("int column_type(int)"), asMETHOD(sqlite3statement, column_type), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3statement"), _O("string column_text(int)"), asMETHOD(sqlite3statement, column_text), asCALL_THISCALL);
-	engine->RegisterFuncdef(_O("int sqlite3authorizer(string, int, string, string, string, string)"));
-	engine->RegisterObjectType(_O("sqlite3"), 0, asOBJ_REF);
-	engine->RegisterObjectBehaviour(_O("sqlite3"), asBEHAVE_FACTORY, _O("sqlite3@ db()"), asFUNCTION(new_sqlite3), asCALL_CDECL);
-	engine->RegisterObjectBehaviour(_O("sqlite3"), asBEHAVE_FACTORY, _O("sqlite3@ db(const string&in, int=6)"), asFUNCTION(new_sqlite3open), asCALL_CDECL);
-	engine->RegisterObjectBehaviour(_O("sqlite3"), asBEHAVE_ADDREF, _O("void f()"), asMETHOD(sqlite3DB, add_ref), asCALL_THISCALL);
-	engine->RegisterObjectBehaviour(_O("sqlite3"), asBEHAVE_RELEASE, _O("void f()"), asMETHOD(sqlite3DB, release), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("int close()"), asMETHOD(sqlite3DB, close), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("int open(const string&in, int=6)"), asMETHOD(sqlite3DB, open), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("sqlite3statement@ prepare(const string&in, int&out=void)"), asMETHOD(sqlite3DB, prepare), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("int execute(const string&in, string[][]@=null)"), asMETHOD(sqlite3DB, execute), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("int64 get_rows_changed() property"), asMETHOD(sqlite3DB, get_rows_changed), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("int64 get_total_rows_changed() property"), asMETHOD(sqlite3DB, get_total_rows_changed), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("int limit(int id, int val)"), asMETHOD(sqlite3DB, limit), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("int set_authorizer(sqlite3authorizer@, const string&in=\"\")"), asMETHOD(sqlite3DB, set_authorizer), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("int64 get_last_insert_rowid() property"), asMETHOD(sqlite3DB, get_last_insert_rowid), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("void set_last_insert_rowid(int64) property"), asMETHOD(sqlite3DB, set_last_insert_rowid), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("int get_last_error()"), asMETHOD(sqlite3DB, get_last_error), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("string get_last_error_text()"), asMETHOD(sqlite3DB, get_last_error_text), asCALL_THISCALL);
-	engine->RegisterObjectMethod(_O("sqlite3"), _O("bool get_active() property"), asMETHOD(sqlite3DB, active), asCALL_THISCALL);
+	engine->RegisterObjectType(sqlite3statement", 0, asOBJ_REF);
+	engine->RegisterObjectBehaviour("sqlite3statement", asBEHAVE_ADDREF, "void f()", asMETHOD(sqlite3statement, add_ref), asCALL_THISCALL);
+	engine->RegisterObjectBehaviour("sqlite3statement", asBEHAVE_RELEASE, "void f()", asMETHOD(sqlite3statement, release), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int step()", asMETHOD(sqlite3statement, step), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int reset()", asMETHOD(sqlite3statement, reset), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "string get_expanded_sql_statement() property", asMETHOD(sqlite3statement, get_expanded_sql_statement), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "string get_sql_statement() property", asMETHOD(sqlite3statement, get_sql_statement), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int get_bind_param_count() property", asMETHOD(sqlite3statement, get_bind_param_count), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int get_column_count() property", asMETHOD(sqlite3statement, get_column_count), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int bind_blob(int, const string&in, bool=true)", asMETHOD(sqlite3statement, bind_blob), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int bind_double(int, double)", asMETHOD(sqlite3statement, bind_double), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int bind_int(int, int)", asMETHOD(sqlite3statement, bind_int), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int bind_int64(int, int64)", asMETHOD(sqlite3statement, bind_int64), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int bind_null(int)", asMETHOD(sqlite3statement, bind_null), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int bind_param_index(const string&in)", asMETHOD(sqlite3statement, bind_param_index), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "string bind_param_name(int)", asMETHOD(sqlite3statement, bind_param_name), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int bind_text(int, const string&in, bool=true)", asMETHOD(sqlite3statement, bind_text), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int clear_bindings()", asMETHOD(sqlite3statement, clear_bindings), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "string column_blob(int)", asMETHOD(sqlite3statement, column_blob), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int column_bytes(int)", asMETHOD(sqlite3statement, column_bytes), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "string column_decltype(int)", asMETHOD(sqlite3statement, column_decltype), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "double column_double(int)", asMETHOD(sqlite3statement, column_double), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int column_int(int)", asMETHOD(sqlite3statement, column_int), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int64 column_int64(int)", asMETHOD(sqlite3statement, column_int64), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "string column_name(int)", asMETHOD(sqlite3statement, column_name), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "int column_type(int)", asMETHOD(sqlite3statement, column_type), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3statement", "string column_text(int)", asMETHOD(sqlite3statement, column_text), asCALL_THISCALL);
+	engine->RegisterFuncdef("int sqlite3authorizer(string, int, string, string, string, string)");
+	engine->RegisterObjectType("sqlite3", 0, asOBJ_REF);
+	engine->RegisterObjectBehaviour("sqlite3", asBEHAVE_FACTORY, "sqlite3@ db()", asFUNCTION(new_sqlite3), asCALL_CDECL);
+	engine->RegisterObjectBehaviour("sqlite3", asBEHAVE_FACTORY, "sqlite3@ db(const string&in, int=6)", asFUNCTION(new_sqlite3open), asCALL_CDECL);
+	engine->RegisterObjectBehaviour("sqlite3", asBEHAVE_ADDREF, "void f()", asMETHOD(sqlite3DB, add_ref), asCALL_THISCALL);
+	engine->RegisterObjectBehaviour("sqlite3", asBEHAVE_RELEASE, "void f()", asMETHOD(sqlite3DB, release), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "int close()", asMETHOD(sqlite3DB, close), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "int open(const string&in, int=6)", asMETHOD(sqlite3DB, open), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "sqlite3statement@ prepare(const string&in, int&out=void)", asMETHOD(sqlite3DB, prepare), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "int execute(const string&in, string[][]@=null)", asMETHOD(sqlite3DB, execute), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "int64 get_rows_changed() property", asMETHOD(sqlite3DB, get_rows_changed), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "int64 get_total_rows_changed() property", asMETHOD(sqlite3DB, get_total_rows_changed), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "int limit(int id, int val)", asMETHOD(sqlite3DB, limit), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", _O("int set_authorizer(sqlite3authorizer@, const string&in=\"\")"), asMETHOD(sqlite3DB, set_authorizer), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "int64 get_last_insert_rowid() property", asMETHOD(sqlite3DB, get_last_insert_rowid), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "void set_last_insert_rowid(int64) property", asMETHOD(sqlite3DB, set_last_insert_rowid), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "int get_last_error()", asMETHOD(sqlite3DB, get_last_error), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "string get_last_error_text()", asMETHOD(sqlite3DB, get_last_error_text), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "bool get_active() property", asMETHOD(sqlite3DB, active), asCALL_THISCALL);
 }
 
 plugin_main(nvgt_plugin_shared* shared) {

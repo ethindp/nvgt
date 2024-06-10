@@ -219,7 +219,7 @@ sqlite3DB* new_sqlite3open(const std::string& filename, int mode) { return new s
 
 void RegisterSqlite3(asIScriptEngine* engine) {
 	engine->SetDefaultAccessMask(NVGT_SUBSYSTEM_SQLITE3);
-	engine->RegisterObjectType(sqlite3statement", 0, asOBJ_REF);
+	engine->RegisterObjectType("sqlite3statement", 0, asOBJ_REF);
 	engine->RegisterObjectBehaviour("sqlite3statement", asBEHAVE_ADDREF, "void f()", asMETHOD(sqlite3statement, add_ref), asCALL_THISCALL);
 	engine->RegisterObjectBehaviour("sqlite3statement", asBEHAVE_RELEASE, "void f()", asMETHOD(sqlite3statement, release), asCALL_THISCALL);
 	engine->RegisterObjectMethod("sqlite3statement", "int step()", asMETHOD(sqlite3statement, step), asCALL_THISCALL);
@@ -259,7 +259,7 @@ void RegisterSqlite3(asIScriptEngine* engine) {
 	engine->RegisterObjectMethod("sqlite3", "int64 get_rows_changed() property", asMETHOD(sqlite3DB, get_rows_changed), asCALL_THISCALL);
 	engine->RegisterObjectMethod("sqlite3", "int64 get_total_rows_changed() property", asMETHOD(sqlite3DB, get_total_rows_changed), asCALL_THISCALL);
 	engine->RegisterObjectMethod("sqlite3", "int limit(int id, int val)", asMETHOD(sqlite3DB, limit), asCALL_THISCALL);
-	engine->RegisterObjectMethod("sqlite3", _O("int set_authorizer(sqlite3authorizer@, const string&in=\"\")"), asMETHOD(sqlite3DB, set_authorizer), asCALL_THISCALL);
+	engine->RegisterObjectMethod("sqlite3", "int set_authorizer(sqlite3authorizer@, const string&in=\"\")", asMETHOD(sqlite3DB, set_authorizer), asCALL_THISCALL);
 	engine->RegisterObjectMethod("sqlite3", "int64 get_last_insert_rowid() property", asMETHOD(sqlite3DB, get_last_insert_rowid), asCALL_THISCALL);
 	engine->RegisterObjectMethod("sqlite3", "void set_last_insert_rowid(int64) property", asMETHOD(sqlite3DB, set_last_insert_rowid), asCALL_THISCALL);
 	engine->RegisterObjectMethod("sqlite3", "int get_last_error()", asMETHOD(sqlite3DB, get_last_error), asCALL_THISCALL);
